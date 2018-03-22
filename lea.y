@@ -5,20 +5,20 @@ extern int yylex();
 int yyerror(char *s);
 %}
 
-%token AFF COMMA TRUE FALSE NULL COLON READLN PRINTLN NEW DISPOSE RETURN OF SEMICOLON RANGE IF THEN ELSE WHILE DO PLUS MINUS TIMES DIV OR AND NOT LT LE GT GE EQ DIFF LPAR RPAR LBRACKET RBRACKET
+%token AFF COMMA TYPE TRUE FALSE NULL COLON READLN PRINTLN NEW DISPOSE RETURN OF SEMICOLON RANGE IF THEN ELSE WHILE DO PLUS MINUS TIMES DIV OR AND NOT LT LE GT GE EQ DIFF LPAR RPAR LBRACKET RBRACKET
 %token VAR IDENTIFIER PROC FUNC CIRCON ARRAY INTEGER BOOLEAN CHARACTER TOKEN_BEGIN TOKEN_END
 
 %%
 program:
   type_declaration_part
   variable_declaration_part
-  procedure_and_function_definiton_part
+  procedure_and_function_definition_part
   TOKEN_BEGIN
   statement_list
   TOKEN_END
 
 type_declaration_part:
-  'type' type_declaration_list
+  TYPE type_declaration_list
   | /* empty */
   ;
 
@@ -68,7 +68,7 @@ array_type:
 
 range_type:
   enumerated_type
-  | subrange_typeVAR
+  | subrange_type
   | named_type
   ;
 
@@ -189,7 +189,7 @@ println_statement:
   PRINTLN LPAR expression RPAR SEMICOLON
   ;
 
-readln_statement;
+readln_statement:
   READLN LPAR expression RPAR SEMICOLON
   ;
 
