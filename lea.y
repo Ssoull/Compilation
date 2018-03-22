@@ -37,9 +37,9 @@ type:
   | index_type
   | array_type
   | pointer_type
-  ;procedure_and_function_definition_head
+  ;
 
-simple_type:CIRCON
+simple_type:
   CHARACTER
   | INTEGER
   | BOOLEAN
