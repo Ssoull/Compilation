@@ -8,6 +8,19 @@ int yyerror(char *s);
 %token AFF COMMA TYPE TRUE FALSE NULL COLON READLN PRINTLN NEW DISPOSE RETURN OF SEMICOLON RANGE IF THEN ELSE WHILE DO PLUS MINUS TIMES DIV OR AND NOT LT LE GT GE EQ DIFF LPAR RPAR LBRACKET RBRACKET
 %token VAR IDENTIFIER PROC FUNC CIRCON ARRAY INTEGER BOOLEAN CHARACTER TOKEN_BEGIN TOKEN_END
 
+%nonassoc THEN
+%nonassoc ELSE
+
+%left OR
+%left AND
+%nonassoc NOT
+
+%nonassoc LT LE GT GE EQ DIFF
+
+%left PLUS MINUS
+%left TIMES DIV
+%nonassoc UNARYMINUS
+
 %%
 program:
   type_declaration_part
@@ -230,7 +243,7 @@ expression:
   | expression DIV expression
   | expression OR expression
   | expression AND expression
-  | MINUS expression
+  | MINUS expression %prec UNARYMINUS
   | NOT expression
   | expression LT expression
   | expression LE expression
