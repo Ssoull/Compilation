@@ -2,16 +2,60 @@
 #include<stdio.h>
 #include"type.h"
 
-struct Type* creaType(enum Tag,struct Type*,struct Type*){
+Type* createType(Tag tag, Type* left, Type* right){
+  Type* tmp = malloc(sizeof(Type));
 
+  tmp->tag = tag;
+  tmp->left = left;
+  tmp->right = right;
+
+  return tmp;
 }
 
-void displayType(struct Type* type){
-  printf("Tag : %d", type->tag )
-  printf("Fils : ")
+char* convertEnumToString(Tag tag) {
+  switch(tag) {
+    case INT:
+      return 'INT';
+    break;
+    case BOOL:
+      return 'BOOL';
+    break;
+    case CHAR:
+      return 'CHAR';
+    break;
+    case PTR:
+      return 'PTR';
+    break;
+    case ARR:
+      return 'ARR';
+    break;
+    case FUNC:
+      return 'FUNC';
+    break;
+    case PROD:
+      return 'PROD';
+    break;
+  }
 }
 
-int EqualTo(struct Type* type1, struct Type* type2){
+void displayType(Type* type){
+
+  // TAG(lhs, rhs)
+  printf("%c(", convertEnumToString(type->tag));
+  if (type->left) {
+    displayType(type->left);
+  }
+
+  printf(",");
+
+  if (type->right) {
+    displayType(type->right);
+  }
+
+  printf(")");
+}
+
+int EqualTo(Type* type1, Type* type2){
   if (type1->tag != type2->tag)
     return 0;
 
@@ -33,6 +77,26 @@ int EqualTo(struct Type* type1, struct Type* type2){
 }
 
 int main(int argc, char const *argv[]) {
+  Type* type = malloc(10*sizeof(*type));
+  Type* l = malloc(sizeof(*l));
+  l->tag = INT;
+  l->left = NULL;
+  l->right = NULL;
 
+  Type* r = malloc(sizeof(*r));
+  r->tag = PROD;
+  r->left = NULL;
+  r->right = NULL;
+
+  Type* m = malloc(sizeof(*m));
+  m->tag = FUNC;
+  m->left = l;
+  m->right = r;
+
+  type[0].tag = CHAR;
+  type[0].left = m;
+  type[0].right = l;
+
+  displayType(type);
   return 0;
 }
