@@ -15,25 +15,25 @@ Type* createType(Tag tag, Type* left, Type* right){
 char* convertEnumToString(Tag tag) {
   switch(tag) {
     case INT:
-      return 'INT';
+      return "INT";
     break;
     case BOOL:
-      return 'BOOL';
+      return "BOOL";
     break;
     case CHAR:
-      return 'CHAR';
+      return "CHAR";
     break;
     case PTR:
-      return 'PTR';
+      return "PTR";
     break;
     case ARR:
-      return 'ARR';
+      return "ARR";
     break;
     case FUNC:
-      return 'FUNC';
+      return "FUNC";
     break;
     case PROD:
-      return 'PROD';
+      return "PROD";
     break;
   }
 }
@@ -41,7 +41,7 @@ char* convertEnumToString(Tag tag) {
 void displayType(Type* type){
 
   // TAG(lhs, rhs)
-  printf("%c(", convertEnumToString(type->tag));
+  printf("%s(", convertEnumToString(type->tag));
   if (type->left) {
     displayType(type->left);
   }
