@@ -11,7 +11,7 @@ int yyerror(char *s);
 }
 
 %token AFF COMMA TYPE TRUE FALSE NULL COLON READLN PRINTLN NEW DISPOSE RETURN OF SEMICOLON RANGE IF THEN ELSE WHILE DO PLUS MINUS TIMES DIV OR AND NOT LT LE GT GE EQ DIFF LPAR RPAR LBRACKET RBRACKET
-%token VAR IDENTIFIER PROC FUNC CIRCON ARRAY INTEGER BOOLEAN CHARACTER TOKEN_BEGIN TOKEN_END
+%token VAR IDENTIFIER PROC FUNC CIRCON ARRAY INTEGER CHARACTER INTEGER_TOKEN BOOLEAN_TOKEN CHARACTER_TOKEN TOKEN_BEGIN TOKEN_END
 
 %type<TYPEVAL> type
 
@@ -27,7 +27,7 @@ int yyerror(char *s);
 
 %left PLUS MINUS
 %left TIMES DIV
-%nonassoc UNARYMINUS
+%nonassoc UNARYMINUS{$$=
 
 %%
 program:
@@ -55,15 +55,15 @@ type_declaration:
 type:
   simple_type {$$=$1;}
   | named_type {$$=$1;}
-  | index_typCOLONe {$$=$1;}
+  | index_type {$$=$1;}
   | array_type {$$=$1;}
   | pointer_type {$$=$1;}
   ;
 
 simple_type:
-  CHARACTER {$$=createType(CHAR,NULL,NULL);}
-  | INTEGER {$$=createType(INT,NULL,NULL);}
-  | BOOLEAN {$$=createType(BOOL,NULL,NULL);}
+  CHARACTER_TOKEN {$$=createType(CHAR,NULL,NULL);}
+  | INTEGER_TOKEN {$$=createType(INT,NULL,NULL);}
+  | BOOLEAN_TOKEN {$$=createType(BOOL,NULL,NULL);}
   ;
 
 named_type:
