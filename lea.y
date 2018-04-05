@@ -5,8 +5,16 @@ extern int yylex();
 int yyerror(char *s);
 %}
 
+%union{
+  Type* TYPEVAL;
+  //struct Tree* TREEVAL; %type<TREEVAL> statement
+}
+
 %token AFF COMMA TYPE TRUE FALSE NULL COLON READLN PRINTLN NEW DISPOSE RETURN OF SEMICOLON RANGE IF THEN ELSE WHILE DO PLUS MINUS TIMES DIV OR AND NOT LT LE GT GE EQ DIFF LPAR RPAR LBRACKET RBRACKET
 %token VAR IDENTIFIER PROC FUNC CIRCON ARRAY INTEGER BOOLEAN CHARACTER TOKEN_BEGIN TOKEN_END
+
+%type<TYPEVAL> type
+
 
 %nonassoc THEN
 %nonassoc ELSE
@@ -45,17 +53,17 @@ type_declaration:
   ;
 
 type:
-  simple_type
-  | named_type
-  | index_type
-  | array_type
-  | pointer_type
+  simple_type {$$=$1;}
+  | named_type {$$=$1;}
+  | index_typCOLONe {$$=$1;}
+  | array_type {$$=$1;}
+  | pointer_type {$$=$1;}
   ;
 
 simple_type:
-  CHARACTER
-  | INTEGER
-  | BOOLEAN
+  CHARACTER {$$=createType(CHAR,NULL,NULL);}
+  | INTEGER {$$=createType(INT,NULL,NULL);}
+  | BOOLEAN {$$=createType(BOOL,NULL,NULL);}
   ;
 
 named_type:
@@ -237,7 +245,7 @@ indexed_variable:
 
 expression:
   variable_access
-  | expression PLUS expression
+  | expression PLUS expression {$$=creat_(binop+ $1 $3);}
   | expression TIMES expression
   | expression MINUS expression
   | expression DIV expression
