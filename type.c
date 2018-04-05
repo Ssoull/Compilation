@@ -77,26 +77,6 @@ int EqualTo(Type* type1, Type* type2){
 }
 
 int main(int argc, char const *argv[]) {
-  Type* type = malloc(10*sizeof(*type));
-  Type* l = malloc(sizeof(*l));
-  l->tag = INT;
-  l->left = NULL;
-  l->right = NULL;
-
-  Type* r = malloc(sizeof(*r));
-  r->tag = PROD;
-  r->left = NULL;
-  r->right = NULL;
-
-  Type* m = malloc(sizeof(*m));
-  m->tag = FUNC;
-  m->left = l;
-  m->right = r;
-
-  type[0].tag = CHAR;
-  type[0].left = m;
-  type[0].right = l;
-
-  displayType(type);
+  
   return 0;
 }
