@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 typedef struct Env
 {
@@ -13,4 +14,4 @@ typedef struct Element{
 }Element;
 
 void add(Env *env,char* var_name, void* type);
-void* find(Env env, char* var_name);
+void* find(Env *env, char* var_name);
