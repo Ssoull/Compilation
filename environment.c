@@ -35,12 +35,5 @@ void* find(Env *env, char* var_name){
 }
 
 int main(){
-  Env* env = malloc(sizeof(Env));
-  char* type = "type";
-  add(env, "name",type);
-  add(env, "name2",type);
-  printf("%s, %s\n",env->first->type, env->first->str);
-  printf("%s, %s\n",env->first->next->type, env->first->next->str);
-  find(env, "name");
   return 0;
 }
