@@ -5,12 +5,8 @@ extern int yylex();
 int yyerror(char *s);
 %}
 
-%union{
-  Type* TYPEVAL;
-  //struct Tree* TREEVAL; %type<TREEVAL> statement
-}
 
-%token AFF COMMA TYPE TRUE FALSE NULL COLON READLN PRINTLN NEW DISPOSE RETURN OF SEMICOLON RANGE IF THEN ELSE WHILE DO PLUS MINUS TIMES DIV OR AND NOT LT LE GT GE EQ DIFF LPAR RPAR LBRACKET RBRACKET
+%token AFF COMMA TYPE TRUE FALSE NULL_TOKEN COLON READLN PRINTLN NEW DISPOSE RETURN OF SEMICOLON RANGE IF THEN ELSE WHILE DO PLUS MINUS TIMES DIV OR AND NOT LT LE GT GE EQ DIFF LPAR RPAR LBRACKET RBRACKET
 %token VAR IDENTIFIER PROC FUNC CIRCON ARRAY INTEGER CHARACTER INTEGER_TOKEN BOOLEAN_TOKEN CHARACTER_TOKEN TOKEN_BEGIN TOKEN_END
 
 %type<TYPEVAL> type
@@ -27,7 +23,7 @@ int yyerror(char *s);
 
 %left PLUS MINUS
 %left TIMES DIV
-%nonassoc UNARYMINUS{$$=
+%nonassoc UNARYMINUS
 
 %%
 program:
@@ -53,17 +49,17 @@ type_declaration:
   ;
 
 type:
-  simple_type {$$=$1;}
-  | named_type {$$=$1;}
-  | index_type {$$=$1;}
-  | array_type {$$=$1;}
-  | pointer_type {$$=$1;}
+  simple_type
+  | named_type
+  | index_type
+  | array_type
+  | pointer_type
   ;
 
 simple_type:
-  CHARACTER_TOKEN {$$=createType(CHAR,NULL,NULL);}
-  | INTEGER_TOKEN {$$=createType(INT,NULL,NULL);}
-  | BOOLEAN_TOKEN {$$=createType(BOOL,NULL,NULL);}
+  CHARACTER_TOKEN
+  | INTEGER_TOKEN
+  | BOOLEAN_TOKEN
   ;
 
 named_type:
@@ -245,7 +241,7 @@ indexed_variable:
 
 expression:
   variable_access
-  | expression PLUS expression {$$=creat_(binop+ $1 $3);}
+  | expression PLUS expression
   | expression TIMES expression
   | expression MINUS expression
   | expression DIV expression
@@ -269,7 +265,7 @@ literal:
   | CHARACTER
   | TRUE
   | FALSE
-  | NULL
+  | NULL_TOKEN
   ;
 
 %%

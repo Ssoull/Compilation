@@ -40,7 +40,7 @@
 "end"                                 {return TOKEN_END;}
 "dispose"                             {return DISPOSE;}
 "new"                                 {return NEW;}
-"null"                                {return NULL;}
+"null"                                {return NULL_TOKEN;}
 "return"                              {return RETURN;}
 "of"                                  {return OF;}
 "["                                   {return LBRACKET;}
